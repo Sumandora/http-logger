@@ -22,7 +22,7 @@ Content-Type: application/json; charset=UTF-8
 
 {"timestamp":{"secs_since_epoch":1772354249,"nanos_since_epoch":368051819},"level":"INFO","target":"example","module":"example","file":"src/main.rs","line":4,"message":"An Example Information!"}
 ```
-The [structure](./struct.LogEntry.html) in the body is public in this crate and can be used for deserialization on the server side.
+The structure in the body is public in this crate and can be used for deserialization on the server side.
 
 Example Server
 ---
