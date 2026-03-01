@@ -50,7 +50,8 @@ pub struct HttpLogger {
 }
 
 impl HttpLogger {
-    fn new(endpoint: String) -> Self {
+    /// Creates a new HttpLogger
+    pub fn new(endpoint: String) -> Self {
         Self {
             endpoint,
             reentrant_guard: Mutex::new(()),
