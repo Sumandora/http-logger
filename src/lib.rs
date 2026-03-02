@@ -68,7 +68,7 @@ pub struct LogEntry {
     pub module: Option<String>,
     pub file: Option<String>,
     pub line: Option<u32>,
-    pub message: Option<String>,
+    pub message: String,
 }
 
 impl Log for HttpLogger {
@@ -91,7 +91,7 @@ impl Log for HttpLogger {
             module: record.module_path().map(ToOwned::to_owned),
             file: record.file().map(ToOwned::to_owned),
             line: record.line(),
-            message: record.args().as_str().map(ToOwned::to_owned),
+            message: record.args().to_string(),
         };
 
         let request = match minreq::post(&self.endpoint).with_json(&entry) {
@@ -234,10 +234,10 @@ mod tests {
         let log_entries = log_entries.lock().unwrap();
 
         assert_eq!(log_entries.len(), 5);
-        assert_eq!(log_entries[0].message.as_ref().unwrap(), "Test Error");
-        assert_eq!(log_entries[1].message.as_ref().unwrap(), "Test Warn");
-        assert_eq!(log_entries[2].message.as_ref().unwrap(), "Test Info");
-        assert_eq!(log_entries[3].message.as_ref().unwrap(), "Test Debug");
-        assert_eq!(log_entries[4].message.as_ref().unwrap(), "Test Trace");
+        assert_eq!(log_entries[0].message, "Test Error");
+        assert_eq!(log_entries[1].message, "Test Warn");
+        assert_eq!(log_entries[2].message, "Test Info");
+        assert_eq!(log_entries[3].message, "Test Debug");
+        assert_eq!(log_entries[4].message, "Test Trace");
     }
 }
